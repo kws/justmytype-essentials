@@ -5,7 +5,7 @@ A small set of essential fonts that give a safe baseline for any application tha
 ## Repo layout
 
 - **pack-tools/** — Build tools for creating JustMyType font packs (fetch from upstream, build pack dirs, generate manifests). See [pack-tools/README.md](pack-tools/README.md) for full CLI usage.
-- **packs/** — Font packs: `western-core` (Western baseline), `intl-rtl`, `intl-south-asia`, `intl-sea`, `intl-cjk`, `intl-africa`, and the meta-pack `international` (western + all international except CJK). See [plan.md](plan.md) for the full list and rationale.
+- **packs/** — Font packs: `western-core` (Western baseline), `intl-rtl`, `intl-south-asia`, `intl-sea`, `intl-cjk`, `intl-africa`, and the meta-pack `international` (western + all international except CJK).
 
 ## Quickstart
 
@@ -15,6 +15,8 @@ Install a pack:
 pip install justmytype-western-core
 ```
 
+For broad international coverage (excluding East Asian), use `pip install justmytype-international`. For East Asian (CJK), add `justmytype-intl-cjk`.
+
 Develop in this repo:
 
 ```bash
@@ -23,6 +25,15 @@ just fetch western-core
 just build western-core
 just dist western-core
 ```
+
+To work on all font packs: `just fetch-all`, `just build-all`, `just dist-all`. The meta-pack has no upstream; build it with `just dist international`.
+
+## Rationale
+
+- Western core = universal default runtime fontset
+- International packs = script-specific correctness layers
+- CJK isolated = size + install ergonomics
+- Meta-pack composes bundles rather than duplicating fonts
 
 ## License
 
