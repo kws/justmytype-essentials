@@ -1,4 +1,4 @@
-"""CLI for pack-tools."""
+"""CLI for pack-tools. Delegates to pipeline API."""
 
 from __future__ import annotations
 
@@ -7,15 +7,14 @@ from pathlib import Path
 
 import click
 
-from justmytype_pack_tools.config import load_pack_config
-from justmytype_pack_tools.download import download_family_tree, get_github_token
-from justmytype_pack_tools.filesystem import copy_tree
-from justmytype_pack_tools.licenses import resolve_licenses
-from justmytype_pack_tools.manifest import (
-    ManifestLicenseConfig,
-    generate_manifest,
+from justmytype_pack_tools.pipeline import (
+    BuildRequest,
+    FetchRequest,
+    ManifestRequest,
+    run_build,
+    run_fetch,
+    run_manifest,
 )
-from justmytype_pack_tools.readme import generate_readme
 
 
 @click.group()
@@ -37,31 +36,21 @@ def fetch_cmd(pack_dir: Path, cache_dir: Path | None) -> None:
 
     Reads families and source.ref from pack_dir/upstream.toml. source.ref is required.
     """
-    upstream_toml = pack_dir / "upstream.toml"
-    if not upstream_toml.exists():
-        click.echo(f"Error: upstream.toml not found in {pack_dir}", err=True)
-        sys.exit(1)
     try:
-        pack, source, families, _, _ = load_pack_config(upstream_toml, require_ref=True)
+        result = run_fetch(
+            FetchRequest(
+                pack_dir=pack_dir,
+                cache_dir=cache_dir,
+                on_family=lambda fp: click.echo(f"Fetching {fp}..."),
+            )
+        )
+    except FileNotFoundError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)
-    if not source.repo:
-        click.echo("Error: source.repo is required in upstream.toml", err=True)
-        sys.exit(1)
-    cache_root = cache_dir or (pack_dir / "cache")
-    cache_root.mkdir(parents=True, exist_ok=True)
-    token = get_github_token()
-    for family_path in families:
-        click.echo(f"Fetching {family_path}...")
-        download_family_tree(
-            repo_url=source.repo,
-            ref=source.ref,
-            family_path=family_path,
-            cache_dir=cache_root,
-            token=token,
-        )
-    click.echo(f"Done. Cached under {cache_root}")
+    click.echo(f"Done. Cached under {result.cache_root}")
 
 
 @main.command("build")
@@ -82,55 +71,26 @@ def build_cmd(pack_dir: Path, cache_dir: Path | None, tool_version: str) -> None
 
     Resolves licenses (auto-detect + allowlist). Fails if license unknown and not overridden.
     """
-    upstream_toml = pack_dir / "upstream.toml"
-    if not upstream_toml.exists():
-        click.echo(f"Error: upstream.toml not found in {pack_dir}", err=True)
-        sys.exit(1)
     try:
-        pack, source, families, _, overrides = load_pack_config(upstream_toml, require_ref=True)
+        result = run_build(
+            BuildRequest(
+                pack_dir=pack_dir,
+                cache_dir=cache_dir,
+                tool_version=tool_version,
+                generate_manifest=True,
+                generate_readme=True,
+            )
+        )
+    except FileNotFoundError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)
-    cache_root = cache_dir or (pack_dir / "cache")
-    src = pack_dir / "src"
-    if not src.exists():
-        click.echo(f"Error: src/ not found in {pack_dir}", err=True)
-        sys.exit(1)
-    candidates = [d for d in src.iterdir() if d.is_dir() and d.name.startswith("justmytype_")]
-    if not candidates:
-        click.echo(f"Error: no justmytype_* directory in {src}", err=True)
-        sys.exit(1)
-    font_root = candidates[0] / "fonts"
-    font_root.mkdir(parents=True, exist_ok=True)
-    family_dirs: list[Path] = []
-    for family_path in families:
-        cached = cache_root / source.ref / family_path
-        if not cached.is_dir():
-            click.echo(f"Error: cache missing for {family_path}. Run 'pack-tools fetch {pack_dir}' first.", err=True)
-            sys.exit(1)
-        dest_family = font_root / family_path
-        dest_family.parent.mkdir(parents=True, exist_ok=True)
-        copy_tree(cached, dest_family)
-        family_dirs.append(dest_family)
-    try:
-        resolved = resolve_licenses(families, family_dirs, overrides)
-    except ValueError as e:
-        click.echo(f"Error: {e}", err=True)
-        sys.exit(1)
-    licenses = [ManifestLicenseConfig(spdx=spdx, path=path) for spdx, path in resolved]
-    output = font_root / "pack_manifest.json"
-    generate_manifest(
-        output_path=output,
-        pack=pack,
-        source=source,
-        families=families,
-        font_root=font_root,
-        licenses=licenses,
-        tool_version=tool_version,
-    )
-    click.echo(f"Done. Wrote {output}")
-    generate_readme(pack_dir, pack, source, families, licenses, font_root)
-    click.echo("Generated README.md")
+    if result.manifest_path is not None:
+        click.echo(f"Done. Wrote {result.manifest_path}")
+    if result.readme_path is not None:
+        click.echo("Generated README.md")
 
 
 @main.command("manifest")
@@ -163,43 +123,25 @@ def manifest_cmd(
     Reads pack/source/families/licenses from pack_dir/upstream.toml.
     Scans font_root for font files and writes pack_manifest.json.
     """
-    upstream_toml = pack_dir / "upstream.toml"
-    if not upstream_toml.exists():
-        click.echo(f"Error: upstream.toml not found in {pack_dir}", err=True)
-        sys.exit(1)
-
-    if font_root is None:
-        src = pack_dir / "src"
-        if not src.exists():
-            click.echo(f"Error: src/ not found in {pack_dir}", err=True)
-            sys.exit(1)
-        candidates = [d for d in src.iterdir() if d.is_dir() and d.name.startswith("justmytype_")]
-        if not candidates:
-            click.echo(f"Error: no justmytype_* directory in {src}", err=True)
-            sys.exit(1)
-        font_root = candidates[0] / "fonts"
-        if not font_root.exists():
-            click.echo(f"Error: fonts/ not found in {candidates[0]}", err=True)
-            sys.exit(1)
-
-    if output is None:
-        output = font_root / "pack_manifest.json"
-
     try:
-        pack, source, families, licenses, _ = load_pack_config(upstream_toml)
-        generate_manifest(
-            output_path=output,
-            pack=pack,
-            source=source,
-            families=families,
-            font_root=font_root,
-            licenses=licenses,
-            tool_version=tool_version,
+        result = run_manifest(
+            ManifestRequest(
+                pack_dir=pack_dir,
+                font_root=font_root,
+                output=output,
+                tool_version=tool_version,
+            )
         )
-        click.echo(f"✓ Wrote {output}")
+    except FileNotFoundError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
+    except ValueError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)
+    click.echo(f"✓ Wrote {result.output_path}")
 
 
 if __name__ == "__main__":

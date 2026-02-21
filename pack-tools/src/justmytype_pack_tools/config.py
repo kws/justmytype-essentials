@@ -47,6 +47,8 @@ def load_pack_config(
     pack_dict = config.get("pack", {})
     source_dict = config.get("source", {})
 
+    package_dir = (pack_dict.get("package_dir") or "").strip()
+    display_name = (pack_dict.get("display_name") or "").strip()
     pack = ManifestPackConfig(
         name=pack_dict.get("name", ""),
         version=pack_dict.get("version", ""),
@@ -54,6 +56,8 @@ def load_pack_config(
         priority=int(pack_dict.get("priority", 100)),
         description=pack_dict.get("description", ""),
         source_url=pack_dict.get("source_url", ""),
+        package_dir=package_dir,
+        display_name=display_name,
     )
     ref = source_dict.get("ref", "").strip()
     if require_ref and not ref:

@@ -123,6 +123,8 @@ class ManifestPackConfig:
     priority: int
     description: str = ""
     source_url: str = ""
+    package_dir: str = ""  # optional; when set, pack-tools uses src/{package_dir}/fonts
+    display_name: str = ""  # optional; short human title (README H1); else humanize(name)
 
 
 @dataclass(frozen=True, slots=True)
@@ -150,6 +152,7 @@ def generate_manifest(
     font_root: Path,
     licenses: list[ManifestLicenseConfig],
     tool_version: str = "0.1.0",
+    include_timestamp: bool = False,
 ) -> dict[str, Any]:
     """Generate pack_manifest.json for a font pack.
 
@@ -164,11 +167,12 @@ def generate_manifest(
         font_root: Directory containing font files (searched recursively).
         licenses: License entries (spdx + path in pack).
         tool_version: Version of pack-tools that produced this manifest.
+        include_timestamp: If True, include build.timestamp for provenance; default False for deterministic output.
 
     Returns:
         The manifest dict (also written to output_path).
     """
-    timestamp = get_build_timestamp()
+    timestamp = get_build_timestamp() if include_timestamp else None
     font_entries: list[dict[str, Any]] = []
     seen_families: set[str] = set()
 
@@ -219,8 +223,8 @@ def generate_manifest(
             "ref": source.ref,
         },
         "build": {
-            "timestamp": timestamp,
             "tool_version": tool_version,
+            **({"timestamp": timestamp} if timestamp is not None else {}),
         },
         "families": families,
         "fonts": font_entries,
@@ -231,6 +235,8 @@ def generate_manifest(
         manifest["pack"]["description"] = pack.description
     if pack.source_url:
         manifest["pack"]["source_url"] = pack.source_url
+    if (pack.display_name or "").strip():
+        manifest["pack"]["display_name"] = pack.display_name.strip()
     if source.archive_sha256:
         manifest["source"]["archive_sha256"] = source.archive_sha256
 

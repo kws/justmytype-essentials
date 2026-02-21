@@ -12,6 +12,7 @@ from justmytype_pack_tools.manifest import (
     ManifestPackConfig,
     ManifestSourceConfig,
 )
+from justmytype_pack_tools.metadata import resolve_pack_metadata
 
 
 def _families_with_licenses(licenses: list[ManifestLicenseConfig]) -> list[dict[str, Any]]:
@@ -39,24 +40,10 @@ def generate_readme(
 ) -> None:
     """Generate README.md for a font pack from the same resolved data as the manifest.
 
-    Uses the same licenses list as generate_manifest so README and manifest stay in sync.
+    Uses resolve_pack_metadata for identity/display so README and manifest stay in sync.
     """
-    pyproject_toml = pack_dir / "pyproject.toml"
-    package_name = pack_dir.name.replace("-", "_")
-    if pyproject_toml.exists():
-        try:
-            import tomllib
-        except ImportError:
-            import tomli as tomllib  # type: ignore[no-redef]
-        try:
-            with open(pyproject_toml, "rb") as f:
-                pyproject = tomllib.load(f)
-                package_name = pyproject.get("project", {}).get("name", package_name)
-        except Exception:
-            pass
-
-    pack_name = pack_dir.name.replace("-", " ").replace("_", " ").title()
-    families = _families_with_licenses(licenses)
+    resolved = resolve_pack_metadata(pack)
+    families_with_lic = _families_with_licenses(licenses)
 
     env = Environment(
         loader=PackageLoader("justmytype_pack_tools", "templates"),
@@ -64,10 +51,10 @@ def generate_readme(
     )
     template = env.get_template("readme.md.j2")
     context: dict[str, Any] = {
-        "pack_name": pack_name,
-        "package_name": package_name,
-        "description": pack.description,
-        "families": families,
+        "pack_name": resolved.display_name,
+        "package_name": resolved.package_name,
+        "description": resolved.description,
+        "families": families_with_lic,
         "source_repo": source.repo,
         "source_ref": source.ref,
     }
