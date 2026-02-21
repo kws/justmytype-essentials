@@ -1,0 +1,41 @@
+{
+  "manifest_version": "1.0",
+  "pack": {
+    "name": "justmytype-intl-africa",
+    "version": "0.1.0",
+    "entry_point": "intl-africa",
+    "priority": 100,
+    "description": "African scripts: Noto Sans Ethiopic",
+    "source_url": "https://github.com/google/fonts"
+  },
+  "source": {
+    "repo": "https://github.com/google/fonts",
+    "ref": "main"
+  },
+  "build": {
+    "timestamp": "2026-02-21T13:01:16.747404Z",
+    "tool_version": "0.1.0"
+  },
+  "families": [
+    "ofl/notosansethiopic"
+  ],
+  "fonts": [
+    {
+      "path": "ofl/notosansethiopic/NotoSansEthiopic[wdth,wght].ttf",
+      "sha256": "0dbccc00b22d180ebd6a4bd8a733918a29e709fa6798023adc3e6cd40da65077",
+      "family": "Noto Sans Ethiopic",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansEthiopic-Regular"
+    }
+  ],
+  "licenses": [
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosansethiopic/OFL.txt"
+    }
+  ],
+  "family_count": 1,
+  "font_file_count": 1
+}

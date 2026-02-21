@@ -1,0 +1,29 @@
+# Font pack upstream config (google/fonts). Ref and archive_sha256 set at fetch time.
+# Top-level families (must appear before [pack] / [source] in TOML)
+families = [
+  "ofl/notosansthai",
+  "ofl/notosanslao",
+  "ofl/notosanskhmer",
+  "ofl/notosansmyanmar"
+]
+
+[pack]
+name = "justmytype-intl-sea"
+version = "0.1.0"
+entry_point = "intl-sea"
+priority = 100
+description = "Southeast Asian scripts: Noto Sans Thai, Lao, Khmer, Myanmar"
+source_url = "https://github.com/google/fonts"
+
+[source]
+repo = "https://github.com/google/fonts"
+ref = "main"
+archive_sha256 = ""
+
+[[licenses]]
+spdx = "OFL-1.1"
+path = "LICENSES/OFL-1.1.txt"
+
+[[licenses]]
+spdx = "Apache-2.0"
+path = "LICENSES/Apache-2.0.txt"

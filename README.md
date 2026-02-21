@@ -5,7 +5,7 @@ A small set of essential fonts that give a safe baseline for any application tha
 ## Repo layout
 
 - **pack-tools/** — Build tools for creating JustMyType font packs (fetch from upstream, build pack dirs, generate manifests). See [pack-tools/README.md](pack-tools/README.md) for full CLI usage.
-- **packs/** — Font packs, e.g. `western-core` (Inter, Noto Sans, Source Serif 4, Noto Serif, JetBrains Mono, Noto Sans Mono, Noto Sans Symbols 2, STIX Two Math).
+- **packs/** — Font packs: `western-core` (Western baseline), `intl-rtl`, `intl-south-asia`, `intl-sea`, `intl-cjk`, `intl-africa`, and the meta-pack `international` (western + all international except CJK). See [plan.md](plan.md) for the full list and rationale.
 
 ## Quickstart
 

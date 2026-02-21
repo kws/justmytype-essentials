@@ -1,0 +1,55 @@
+{
+  "manifest_version": "1.0",
+  "pack": {
+    "name": "justmytype-intl-rtl",
+    "version": "0.1.0",
+    "entry_point": "intl-rtl",
+    "priority": 100,
+    "description": "RTL scripts: Noto Sans Arabic, Noto Sans Hebrew",
+    "source_url": "https://github.com/google/fonts"
+  },
+  "source": {
+    "repo": "https://github.com/google/fonts",
+    "ref": "main"
+  },
+  "build": {
+    "timestamp": "2026-02-21T13:01:14.065472Z",
+    "tool_version": "0.1.0"
+  },
+  "families": [
+    "ofl/notosansarabic",
+    "ofl/notosanshebrew"
+  ],
+  "fonts": [
+    {
+      "path": "ofl/notosansarabic/NotoSansArabic[wdth,wght].ttf",
+      "sha256": "63111b5b2e074dd48cc67692e0a2726d86ee94c1c37fe8598257b7b4e87e869e",
+      "family": "Noto Sans Arabic",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansArabic-Regular"
+    },
+    {
+      "path": "ofl/notosanshebrew/NotoSansHebrew[wdth,wght].ttf",
+      "sha256": "7ef36a2c3593758cdb622e1bdef4f84523e92fbc3ccc667438dd80ff54c2de88",
+      "family": "Noto Sans Hebrew",
+      "style": "normal",
+      "weight": 100,
+      "width": "normal",
+      "postscript_name": "NotoSansHebrew-Thin"
+    }
+  ],
+  "licenses": [
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosansarabic/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosanshebrew/OFL.txt"
+    }
+  ],
+  "family_count": 2,
+  "font_file_count": 2
+}

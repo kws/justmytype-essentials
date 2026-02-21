@@ -1,0 +1,29 @@
+# Font pack upstream config (google/fonts). Ref and archive_sha256 set at fetch time.
+# Top-level families (must appear before [pack] / [source] in TOML)
+families = [
+  "ofl/notosansdevanagari",
+  "ofl/notosansbengali",
+  "ofl/notosanstamil",
+  "ofl/notosanstelugu"
+]
+
+[pack]
+name = "justmytype-intl-south-asia"
+version = "0.1.0"
+entry_point = "intl-south-asia"
+priority = 100
+description = "Indic scripts: Noto Sans Devanagari, Bengali, Tamil, Telugu"
+source_url = "https://github.com/google/fonts"
+
+[source]
+repo = "https://github.com/google/fonts"
+ref = "main"
+archive_sha256 = ""
+
+[[licenses]]
+spdx = "OFL-1.1"
+path = "LICENSES/OFL-1.1.txt"
+
+[[licenses]]
+spdx = "Apache-2.0"
+path = "LICENSES/Apache-2.0.txt"

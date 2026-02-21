@@ -1,0 +1,83 @@
+{
+  "manifest_version": "1.0",
+  "pack": {
+    "name": "justmytype-intl-south-asia",
+    "version": "0.1.0",
+    "entry_point": "intl-south-asia",
+    "priority": 100,
+    "description": "Indic scripts: Noto Sans Devanagari, Bengali, Tamil, Telugu",
+    "source_url": "https://github.com/google/fonts"
+  },
+  "source": {
+    "repo": "https://github.com/google/fonts",
+    "ref": "main"
+  },
+  "build": {
+    "timestamp": "2026-02-21T13:01:14.532807Z",
+    "tool_version": "0.1.0"
+  },
+  "families": [
+    "ofl/notosansdevanagari",
+    "ofl/notosansbengali",
+    "ofl/notosanstamil",
+    "ofl/notosanstelugu"
+  ],
+  "fonts": [
+    {
+      "path": "ofl/notosansbengali/NotoSansBengali[wdth,wght].ttf",
+      "sha256": "dcd42978094e584a849c84a51450eeac40c8826057d566ea6d4b9627a403a05a",
+      "family": "Noto Sans Bengali",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansBengali-Regular"
+    },
+    {
+      "path": "ofl/notosansdevanagari/NotoSansDevanagari[wdth,wght].ttf",
+      "sha256": "9ce7b04f60e363d8870e5997744cf85cf69d38a4d7d129d364d92a3b14b461d7",
+      "family": "Noto Sans Devanagari",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansDevanagari-Regular"
+    },
+    {
+      "path": "ofl/notosanstamil/NotoSansTamil[wdth,wght].ttf",
+      "sha256": "aa3a9b321f4b0bb2c40203ffbde9af89713227866e0e13f76e5b9eeea727cf88",
+      "family": "Noto Sans Tamil",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansTamil-Regular"
+    },
+    {
+      "path": "ofl/notosanstelugu/NotoSansTelugu[wdth,wght].ttf",
+      "sha256": "e618af7bf999df192ed4f388eba2e563f2b5015034e9cbb317b5bd793bd7334d",
+      "family": "Noto Sans Telugu",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansTelugu-Regular"
+    }
+  ],
+  "licenses": [
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosansdevanagari/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosansbengali/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosanstamil/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosanstelugu/OFL.txt"
+    }
+  ],
+  "family_count": 4,
+  "font_file_count": 4
+}
