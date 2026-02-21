@@ -1,0 +1,42 @@
+<!-- This file is auto-generated. Do not edit manually. -->
+
+# {{ pack_name }}
+
+{{ description }}
+
+## Installation
+
+```bash
+pip install {{ package_name }}
+```
+
+## Usage
+
+```python
+from justmytype import FontRegistry
+
+registry = FontRegistry()
+font = registry.find_font(family="Inter", weight=400)
+if font:
+    # Use font.path to load the font file
+    pass
+```
+
+## Families
+
+| Font | License | Full text |
+|------|---------|-----------|
+{% for f in families %}| {{ f.font }} | {{ f.spdx }} | `fonts/{{ f.path }}` |
+{% endfor %}
+
+## Upstream
+
+Source: {{ source_repo }} @ {{ source_ref }}
+
+## Development
+
+- **Fetch:** `pack-tools fetch <pack_dir>` — downloads upstream fonts into cache.
+- **Build:** `pack-tools build <pack_dir>` — copies fonts into the pack, generates `pack_manifest.json` and this README.
+- **Dist:** `pip install -e .` or build the wheel from the pack directory.
+
+README is generated during build from the same resolved license data as the manifest.

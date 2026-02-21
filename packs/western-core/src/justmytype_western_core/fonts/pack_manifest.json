@@ -1,0 +1,184 @@
+{
+  "manifest_version": "1.0",
+  "pack": {
+    "name": "justmytype-western-core",
+    "version": "0.1.0",
+    "entry_point": "western-core",
+    "priority": 100,
+    "description": "Western core fonts: Inter, Noto Sans, Source Serif 4, Noto Serif, JetBrains Mono, Noto Sans Mono, Noto Sans Symbols 2, STIX Two Math",
+    "source_url": "https://github.com/google/fonts"
+  },
+  "source": {
+    "repo": "https://github.com/google/fonts",
+    "ref": "main"
+  },
+  "build": {
+    "timestamp": "2026-02-21T12:33:03.224845Z",
+    "tool_version": "0.1.0"
+  },
+  "families": [
+    "ofl/inter",
+    "ofl/notosans",
+    "ofl/sourceserif4",
+    "ofl/notoserif",
+    "ofl/jetbrainsmono",
+    "ofl/notosansmono",
+    "ofl/notosanssymbols2",
+    "ofl/stixtwomath"
+  ],
+  "fonts": [
+    {
+      "path": "ofl/inter/Inter-Italic[opsz,wght].ttf",
+      "sha256": "acd98e64795781b2058f07b18475e0ecee2a0fe2b42a49e2f9e37d0d6bf66ce6",
+      "family": "Inter",
+      "style": "italic",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "Inter-Italic"
+    },
+    {
+      "path": "ofl/inter/Inter[opsz,wght].ttf",
+      "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+      "family": "Inter",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "Inter-Regular"
+    },
+    {
+      "path": "ofl/jetbrainsmono/JetBrainsMono-Italic[wght].ttf",
+      "sha256": "85ae2a5cd3f56baf1ce1c21a851322c58e3d8fbe8e8ad4a4d090a820dd7fe558",
+      "family": "JetBrains Mono",
+      "style": "italic",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "JetBrainsMono-Italic"
+    },
+    {
+      "path": "ofl/jetbrainsmono/JetBrainsMono[wght].ttf",
+      "sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+      "family": "JetBrains Mono",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "JetBrainsMono-Regular"
+    },
+    {
+      "path": "ofl/notosans/NotoSans-Italic[wdth,wght].ttf",
+      "sha256": "58e6e0ebd1931b29a365aa2d3e2ee9a9e831a3af7cf3ad1462d4e72154f0b291",
+      "family": "Noto Sans",
+      "style": "italic",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSans-Italic"
+    },
+    {
+      "path": "ofl/notosans/NotoSans[wdth,wght].ttf",
+      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+      "family": "Noto Sans",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSans-Regular"
+    },
+    {
+      "path": "ofl/notosansmono/NotoSansMono[wdth,wght].ttf",
+      "sha256": "2cb2adb378a8f574213e23df697050b83c54c27df465a2015552740b2769a081",
+      "family": "Noto Sans Mono",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansMono-Regular"
+    },
+    {
+      "path": "ofl/notosanssymbols2/NotoSansSymbols2-Regular.ttf",
+      "sha256": "7d5fb73b7ca67a6798101741f5d280a3d016a56a197afcd4199dbb57b4b82a21",
+      "family": "Noto Sans Symbols 2",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSansSymbols2-Regular"
+    },
+    {
+      "path": "ofl/notoserif/NotoSerif-Italic[wdth,wght].ttf",
+      "sha256": "e87acbc6c0efd0d9a20d6a8cbbda2b266c14be3a3a6f5af8ec9d7b2460570ad1",
+      "family": "Noto Serif",
+      "style": "italic",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSerif-Italic"
+    },
+    {
+      "path": "ofl/notoserif/NotoSerif[wdth,wght].ttf",
+      "sha256": "4d8e6761424656867019081a1a01336f3cb086982682698714054fc33f782713",
+      "family": "Noto Serif",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "NotoSerif-Regular"
+    },
+    {
+      "path": "ofl/sourceserif4/SourceSerif4-Italic[opsz,wght].ttf",
+      "sha256": "15fbc7e4679489a501998c3669272637a6646388ef7e4bd77eebb5bf967a1f42",
+      "family": "Source Serif 4",
+      "style": "italic",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "SourceSerif4Italic-Italic"
+    },
+    {
+      "path": "ofl/sourceserif4/SourceSerif4[opsz,wght].ttf",
+      "sha256": "97b2d4da6e3cb494b5a1e66ae176914d852ccabef49e0c02c0df25f3e39aca0b",
+      "family": "Source Serif 4",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "SourceSerif4Roman-Regular"
+    },
+    {
+      "path": "ofl/stixtwomath/STIXTwoMath-Regular.ttf",
+      "sha256": "562551b15b836e6e01d1b7350909baf3c8c8d83260c1190fbf4544333e6936de",
+      "family": "STIX Two Math",
+      "style": "normal",
+      "weight": 400,
+      "width": "normal",
+      "postscript_name": "STIXTwoMath-Regular"
+    }
+  ],
+  "licenses": [
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/inter/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosans/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/sourceserif4/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notoserif/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/jetbrainsmono/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosansmono/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/notosanssymbols2/OFL.txt"
+    },
+    {
+      "spdx": "OFL-1.1",
+      "path": "ofl/stixtwomath/OFL.txt"
+    }
+  ],
+  "family_count": 8,
+  "font_file_count": 13
+}

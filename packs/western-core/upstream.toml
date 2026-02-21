@@ -1,0 +1,39 @@
+# Font pack upstream config (google/fonts). Ref and archive_sha256 set at fetch time.
+# Top-level families (must appear before [pack] / [source] in TOML)
+families = [
+  "ofl/inter",
+  "ofl/notosans",
+  "ofl/sourceserif4",
+  "ofl/notoserif",
+  "ofl/jetbrainsmono",
+  "ofl/notosansmono",
+  "ofl/notosanssymbols2",
+  "ofl/stixtwomath"
+]
+
+[pack]
+name = "justmytype-western-core"
+version = "0.1.0"
+entry_point = "western-core"
+priority = 100
+description = "Western core fonts: Inter, Noto Sans, Source Serif 4, Noto Serif, JetBrains Mono, Noto Sans Mono, Noto Sans Symbols 2, STIX Two Math"
+source_url = "https://github.com/google/fonts"
+
+[source]
+repo = "https://github.com/google/fonts"
+# Pin to a commit SHA for reproducible builds (e.g. ref = "a1b2c3d")
+ref = "main"
+archive_sha256 = ""
+
+[[licenses]]
+spdx = "OFL-1.1"
+path = "LICENSES/OFL-1.1.txt"
+
+[[licenses]]
+spdx = "Apache-2.0"
+path = "LICENSES/Apache-2.0.txt"
+
+# Optional: override auto-detected license per family (strict + allowlist)
+# [[license_overrides]]
+# family = "ofl/stixtwomath"
+# spdx = "OFL-1.1"

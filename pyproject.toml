@@ -1,0 +1,17 @@
+[project]
+name = "justmytype-essentials"
+version = "0.1.0"
+description = "Essential font packs for JustMyType: Western core fonts and pack build tooling."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Kaj Siebert", email = "kaj@k-si.com"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "justmytype>=0.3.0",
+]
+
+
+
+
