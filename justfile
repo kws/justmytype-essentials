@@ -1,7 +1,7 @@
 # justfile
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
-PACKS := "western-core"
+PACKS := "western-core intl-rtl intl-south-asia intl-sea intl-cjk intl-africa"
 CACHE_DIR := "cache"
 
 help:
@@ -34,8 +34,12 @@ dist pack:
 
 # Fetch all packs
 fetch-all:
-    @for pack in {{PACKS}}; do echo "Fetching $$pack..."; just fetch $$pack; done
+    @for pkg in {{PACKS}}; do echo "Fetching $pkg..." && just fetch $pkg; done
 
 # Build all packs
 build-all:
-    @for pack in {{PACKS}}; do echo "Building $$pack..."; just build $$pack; done
+    @for pkg in {{PACKS}}; do echo "Building $pkg..." && just build $pkg; done
+
+# Dist all packs
+dist-all:
+    @for pkg in {{PACKS}}; do echo "Distributing $pkg..." && just dist $pkg; done
