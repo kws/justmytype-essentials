@@ -30,7 +30,7 @@ manifest pack:
 
 # Build distribution wheel for a pack
 dist pack:
-    cd packs/{{pack}} && python -m build --wheel --outdir ../../dist && cd ../..
+    cd packs/{{pack}} && uv build --wheel -o ../../dist && cd ../..
 
 # Fetch all packs
 fetch-all:
