@@ -13,6 +13,10 @@ from typing import Any
 
 from justmytype_pack_tools.config import load_pack_config
 from justmytype_pack_tools.download import download_family_tree, get_github_token
+from justmytype_pack_tools.font_assets_gen import (
+    generate_font_assets_pyi,
+    generate_font_assets_stub,
+)
 from justmytype_pack_tools.filesystem import copy_tree
 from justmytype_pack_tools.licenses import resolve_licenses
 from justmytype_pack_tools.manifest import (
@@ -111,6 +115,8 @@ class BuildResult:
     font_root: Path
     manifest_path: Path | None  # set if generate_manifest was True
     readme_path: Path | None  # set if generate_readme was True
+    font_assets_path: Path | None  # set when manifest was generated
+    font_assets_pyi_path: Path | None  # set when manifest was generated
     licenses: list[ManifestLicenseConfig]
 
 
@@ -143,9 +149,10 @@ def run_build(request: BuildRequest) -> BuildResult:
     licenses = [ManifestLicenseConfig(spdx=spdx, path=path) for spdx, path in resolved]
 
     manifest_path: Path | None = None
+    manifest_dict: dict[str, Any] | None = None
     if request.generate_manifest:
         output = font_root / "pack_manifest.json"
-        generate_manifest(
+        manifest_dict = generate_manifest(
             output_path=output,
             pack=pack,
             source=source,
@@ -157,6 +164,13 @@ def run_build(request: BuildRequest) -> BuildResult:
         )
         manifest_path = output
 
+    font_assets_path: Path | None = None
+    font_assets_pyi_path: Path | None = None
+    if manifest_dict is not None:
+        package_dir = font_root.parent
+        font_assets_path = generate_font_assets_stub(package_dir, pack.name)
+        font_assets_pyi_path = generate_font_assets_pyi(package_dir, manifest_dict)
+
     readme_path: Path | None = None
     if request.generate_readme:
         generate_readme(request.pack_dir, pack, source, families, licenses, font_root)
@@ -166,6 +180,8 @@ def run_build(request: BuildRequest) -> BuildResult:
         font_root=font_root,
         manifest_path=manifest_path,
         readme_path=readme_path,
+        font_assets_path=font_assets_path,
+        font_assets_pyi_path=font_assets_pyi_path,
         licenses=licenses,
     )
 

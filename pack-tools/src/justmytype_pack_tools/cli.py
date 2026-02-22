@@ -89,6 +89,8 @@ def build_cmd(pack_dir: Path, cache_dir: Path | None, tool_version: str) -> None
         sys.exit(1)
     if result.manifest_path is not None:
         click.echo(f"Done. Wrote {result.manifest_path}")
+    if result.font_assets_path is not None and result.font_assets_pyi_path is not None:
+        click.echo("Generated font_assets.py + font_assets.pyi")
     if result.readme_path is not None:
         click.echo("Generated README.md")
 
