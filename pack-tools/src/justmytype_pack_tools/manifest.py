@@ -7,30 +7,16 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from collections.abc import Iterator
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from fontTools.ttLib import TTFont
+from justmytype.parser import parse_font_metadata
 
 # Font file extensions to include in manifest
 FONT_EXTENSIONS = {".ttf", ".otf", ".ttc", ".woff", ".woff2"}
-
-# OS/2 usWidthClass to CSS width mapping (matches justmytype.parser)
-WIDTH_MAP = {
-    1: "ultra-condensed",
-    2: "extra-condensed",
-    3: "condensed",
-    4: "semi-condensed",
-    5: "normal",
-    6: "semi-expanded",
-    7: "expanded",
-    8: "extra-expanded",
-    9: "ultra-expanded",
-}
 
 
 def get_build_timestamp() -> str:
@@ -62,55 +48,6 @@ def _find_font_files(directory: Path) -> Iterator[Path]:
                 continue
     except OSError:
         return
-
-
-def _parse_font_metadata(path: Path) -> dict[str, Any] | None:
-    """Extract manifest-relevant metadata from a font file using fonttools.
-
-    Returns a dict with family, style, weight, width, postscript_name, or None if parse fails.
-    """
-    try:
-        font = TTFont(str(path))
-        name_table = font.get("name")
-        if name_table is None:
-            return None
-
-        is_variable = font.get("fvar") is not None
-        if is_variable:
-            family = name_table.getDebugName(16)
-            if not family:
-                family = name_table.getDebugName(1)
-                if family:
-                    family = re.sub(r"\s+\d+(\.\d+)?pt\s*$", "", family).strip()
-        else:
-            family = name_table.getDebugName(1)
-
-        if not family:
-            return None
-
-        postscript_name = name_table.getDebugName(6)
-        style = "normal"
-        weight: int | None = None
-        width: str | None = None
-
-        os2 = font.get("OS/2")
-        if os2 is not None:
-            if hasattr(os2, "usWeightClass"):
-                weight = os2.usWeightClass
-            if hasattr(os2, "fsSelection") and os2.fsSelection & 0x01:
-                style = "italic"
-            if hasattr(os2, "usWidthClass"):
-                width = WIDTH_MAP.get(os2.usWidthClass, "normal")
-
-        return {
-            "family": family,
-            "style": style,
-            "weight": weight,
-            "width": width,
-            "postscript_name": postscript_name,
-        }
-    except Exception:
-        return None
 
 
 @dataclass(frozen=True, slots=True)
@@ -183,7 +120,7 @@ def generate_manifest(
             continue
         path_str = str(rel_path).replace("\\", "/")
         sha256 = compute_sha256(font_path)
-        meta = _parse_font_metadata(font_path)
+        meta = parse_font_metadata(font_path)
         if meta is None:
             font_entries.append(
                 {
@@ -194,6 +131,7 @@ def generate_manifest(
                     "weight": None,
                     "width": None,
                     "postscript_name": None,
+                    "variant": None,
                 }
             )
             continue
@@ -207,6 +145,7 @@ def generate_manifest(
                 "weight": meta["weight"],
                 "width": meta["width"],
                 "postscript_name": meta["postscript_name"],
+                "variant": meta.get("variant"),
             }
         )
 

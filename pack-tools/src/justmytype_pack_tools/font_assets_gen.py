@@ -12,11 +12,12 @@ def __getattr__(name):
     return getattr(_catalog, name)
 '''
 
-PYI_HEADER = """from justmytype.font_catalog import FontAsset, FontCatalog, FontFamily
+PYI_HEADER = """from justmytype.font_catalog import FontCatalog, FontFamily
+from justmytype.types import FontInfo
 
 """
 
-PYI_FIND_SIG = "def find(*, family: str, style: str | None = ..., weight: int | None = ..., postscript_name: str | None = ...) -> FontAsset | None: ..."
+PYI_FIND_SIG = "def find(*, family: str, style: str | None = ..., weight: int | None = ..., postscript_name: str | None = ...) -> FontInfo | None: ..."
 PYI_LIST_FAMILIES = "def list_families() -> tuple[str, ...]: ..."
 
 
@@ -66,8 +67,8 @@ def generate_font_assets_pyi(package_dir: Path, manifest: dict[str, Any]) -> Pat
     lines = [PYI_HEADER]
     for attr in _normalized_family_attrs(manifest):
         lines.append(f"{attr}: FontFamily\n")
-    lines.append("all_assets: tuple[FontAsset, ...]\n")
-    lines.append("by_postscript: dict[str, FontAsset]\n")
+    lines.append("all_assets: tuple[FontInfo, ...]\n")
+    lines.append("by_postscript: dict[str, FontInfo]\n")
     lines.append(PYI_FIND_SIG + "\n")
     lines.append(PYI_LIST_FAMILIES + "\n")
     out = package_dir / "font_assets.pyi"

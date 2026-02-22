@@ -43,14 +43,15 @@ def test_generate_font_assets_pyi(tmp_path: Path) -> None:
         out = generate_font_assets_pyi(tmp_path, manifest)
     assert out == tmp_path / "font_assets.pyi"
     content = out.read_text()
-    assert "from justmytype.font_catalog import FontAsset, FontCatalog, FontFamily" in content
+    assert "from justmytype.font_catalog import FontCatalog, FontFamily" in content
+    assert "from justmytype.types import FontInfo" in content
     assert "inter: FontFamily" in content
     assert "dm_sans: FontFamily" in content
-    assert "all_assets: tuple[FontAsset, ...]" in content
-    assert "by_postscript: dict[str, FontAsset]" in content
+    assert "all_assets: tuple[FontInfo, ...]" in content
+    assert "by_postscript: dict[str, FontInfo]" in content
     assert "def find(" in content
     assert "def list_families()" in content
-    assert "FontAsset | None" in content
+    assert "FontInfo | None" in content
 
 
 def test_generate_font_assets_pyi_collision(tmp_path: Path) -> None:
