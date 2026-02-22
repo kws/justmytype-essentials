@@ -12,21 +12,34 @@ pip install {{ package_name }}
 
 ## Usage
 
+**Discovery (registry):**
+
 ```python
 from justmytype import FontRegistry
 
 registry = FontRegistry()
 font = registry.find_font(family="Inter", weight=400)
 if font:
-    # Use font.path to load the font file
-    pass
+    path = font.path  # path to the font file
+    pil_font = font.load(size=24)  # PIL ImageFont (requires Pillow)
+```
+
+**Deterministic imports (pack-specific, version-pinned):**
+
+```python
+from {{ package_module }} import font_assets
+
+# Family names depend on this pack; e.g. font_assets.inter.regular
+asset = font_assets.inter.regular
+path = asset.path  # path to the font file
+pil_font = asset.load(size=24)  # PIL ImageFont (requires Pillow)
 ```
 
 ## Families
 
 | Font | License | Full text |
 |------|---------|-----------|
-{% for f in families %}| {{ f.font }} | {{ f.spdx }} | `fonts/{{ f.path }}` |
+{% for f in families %}| {{ f.font }} | {{ f.spdx }} | [`fonts/{{ f.path }}`]({{ f.link_path }}) |
 {% endfor %}
 
 ## Upstream
