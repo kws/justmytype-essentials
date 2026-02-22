@@ -1,6 +1,6 @@
 [project]
 name = "justmytype-pack-tools"
-version = "0.2.0rc2"
+version = "0.2.0"
 description = "Build tools for creating JustMyType font packs"
 authors = [
     {name = "Kaj Siebert", email = "kaj@k-si.com"}
@@ -11,12 +11,18 @@ dependencies = [
     "click>=8.0",
     "fonttools>=4.0.0",
     "jinja2>=3.1",
-    "justmytype>=0.4.0rc2",
+    "justmytype>=0.4.0",
     "tomli>=2.0; python_version < '3.11'",
 ]
 
 [project.scripts]
 pack-tools = "justmytype_pack_tools.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kws/justmytype-essentials/tree/main/pack-tools"
+Repository = "https://github.com/kws/justmytype-essentials"
+Issues = "https://github.com/kws/justmytype-essentials/issues"
+
 
 [build-system]
 requires = ["hatchling"]

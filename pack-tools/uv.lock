@@ -115,19 +115,19 @@ wheels = [
 
 [[package]]
 name = "justmytype"
-version = "0.4.0rc2"
+version = "0.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fonttools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9f/a0/28a160eace05c9e249ff0c5c34721397f9df888d5dbf0d6036a44be0143c/justmytype-0.4.0rc2.tar.gz", hash = "sha256:6fcc8eed85d4b525c121a53a45438c8dee5c119ed8ef2f75f6d3884db14fee4c", size = 106793, upload-time = "2026-02-22T10:16:08.143Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5d/90/159611a3b8e7536636851b63c0e468ac9d65a53e57d855e8051fc2f9fbe3/justmytype-0.4.0.tar.gz", hash = "sha256:1336960a7f6a2fc3d4a1802db4f547188635a86d8fb423661294b6714ddac49d", size = 106777, upload-time = "2026-02-22T10:32:17.53Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/52/e195054feddcd08957045d0899ce6db169681c541240f619b8effa01e9ac/justmytype-0.4.0rc2-py3-none-any.whl", hash = "sha256:b09922f93ab35c044dab603792aac3fd407d945c1e034c9e7dc02fbcca3bb003", size = 25973, upload-time = "2026-02-22T10:16:06.939Z" },
+    { url = "https://files.pythonhosted.org/packages/0e/db/16179565f91cd54f3a46fa9d8bb996a161ad517b55e365affef8fdf9b214/justmytype-0.4.0-py3-none-any.whl", hash = "sha256:21db1a3b42805da9395fe710b515360b666b6f682bd74a1b22a134ecacf9629b", size = 25937, upload-time = "2026-02-22T10:32:15.457Z" },
 ]
 
 [[package]]
 name = "justmytype-pack-tools"
-version = "0.2.0rc1"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
@@ -147,7 +147,7 @@ requires-dist = [
     { name = "click", specifier = ">=8.0" },
     { name = "fonttools", specifier = ">=4.0.0" },
     { name = "jinja2", specifier = ">=3.1" },
-    { name = "justmytype", specifier = ">=0.4.0rc2" },
+    { name = "justmytype", specifier = ">=0.4.0" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
 ]
 
